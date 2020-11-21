@@ -34,7 +34,7 @@ async def post_file(file: UploadFile, user: User) -> Union[str, None]:
         # get file
         with open(str(absolute_path), "wb") as buffer:
             shutil.copyfileobj(file.file, buffer)
-        url = str(base_url() / "store" / filename)
+        url = f"{base_url()}/store/{filename}"
         # put record to db
         store_row = StoreModel(
             user_id=user.id,

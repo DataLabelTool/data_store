@@ -21,14 +21,14 @@ def static_path() -> Path:
     return Path(os.getenv('API_DATA_DIR', "data"))
 
 
-def base_url() -> Path:
+def base_url() -> str:
     """
 
     :return: Path object with base url
     """
     base = os.getenv('API_BASE_URL', "http://localhost")
     port = os.getenv('API_PORT', "8081")
-    return Path(f"{base}:{port}")
+    return f"{base}:{port}"
 
 
 def get_random_filename(with_subdirs: bool = False, interval: int = 10000) -> str:
