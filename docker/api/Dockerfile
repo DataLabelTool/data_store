@@ -30,7 +30,6 @@ RUN conda update -n base -c defaults conda && \
 RUN echo "conda activate data_store" >> ~/.bashrc
 
 
-EXPOSE 8080
 RUN mkdir /root/data_store
 RUN mkdir /root/data_store/logs
 WORKDIR /root/data_store

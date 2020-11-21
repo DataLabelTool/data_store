@@ -37,7 +37,6 @@ async def create_first_admin() -> bool:
             created_user = await user_db.create(db_user)
             if created_user:
                 created_user.is_superuser = True
-                print(created_user)
                 updated_user = await user_db.update(created_user)
         session.commit()
         session.close()

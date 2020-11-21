@@ -11,7 +11,7 @@ database_name = os.getenv('MYSQL_DATABASE', 'data_db')
 port = os.getenv('MYSQL_PORT', '3306')
 
 DATABASE_URL = "mysql://%s:%s@%s:%s/%s" % (username, password, hostname, port, database_name)
-print(DATABASE_URL)
+
 database = databases.Database(DATABASE_URL)
 
 engine = sqlalchemy.create_engine(

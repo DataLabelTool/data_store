@@ -1,4 +1,6 @@
 from fastapi import FastAPI
+from src.utils import base_url
+import requests
 from src.version import version
 from src.database.base import database
 from src.database.users import create_first_admin
@@ -15,7 +17,8 @@ from src.routes.store import (
 )
 app = FastAPI(
     title="data_db",
-    version=version
+    version=version,
+    root_path=requests.utils.urlparse(base_url()).path
 )
 
 @app.on_event("startup")

@@ -26,9 +26,8 @@ def base_url() -> str:
 
     :return: Path object with base url
     """
-    base = os.getenv('API_BASE_URL', "http://localhost")
-    port = os.getenv('API_PORT', "8081")
-    return f"{base}:{port}"
+    base = os.getenv('API_BASE_URL', "http://localhost:8081")
+    return base
 
 
 def get_random_filename(with_subdirs: bool = False, interval: int = 10000) -> str:
