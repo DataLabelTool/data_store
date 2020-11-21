@@ -1,0 +1,47 @@
+version: '3'
+services:
+  api:
+    image: data_store_api
+    build:
+      context: api
+    restart: always
+    environment:
+      MYSQL_HOST: ${MYSQL_HOST}
+      MYSQL_PORT: 3306
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_ROOT_USER: ${MYSQL_ROOT_USER}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      API_UVICORN_PROCESSES: ${API_UVICORN_PROCESSES}
+      API_PORT: ${API_PORT}
+      API_SECRET: ${API_SECRET}
+      API_DATA_DIR: ${API_DATA_DIR}
+      API_BASE_URL: ${API_BASE_URL}
+      API_ADMIN_EMAIL: ${API_ADMIN_EMAIL}
+      API_ADMIN_PASSWORD: ${API_ADMIN_PASSWORD}
+    networks:
+      - mysql-compose-network
+    ports:
+      - ${API_PORT}:8000
+    volumes:
+      - ../data:/root/data_store/${API_DATA_DIR}
+      - ../:/root/data_store
+    depends_on:
+      - mysql
+  mysql:
+    image: mysql:5.7
+    restart: always
+    hostname: ${MYSQL_HOST}
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    networks:
+      - mysql-compose-network
+    volumes:
+      - ./mysql:/docker-entrypoint-initdb.d/:ro
+      - ./mysql/data:/var/lib/mysql
+    ports:
+      - ${MYSQL_PORT}:3306
+
+networks:
+  mysql-compose-network:
+    driver: bridge
