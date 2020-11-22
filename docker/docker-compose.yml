@@ -18,6 +18,10 @@ services:
       API_BASE_URL: ${API_BASE_URL}
       API_ADMIN_EMAIL: ${API_ADMIN_EMAIL}
       API_ADMIN_PASSWORD: ${API_ADMIN_PASSWORD}
+      WAIT_HOSTS: ${MYSQL_HOST}:3306
+      WAIT_HOSTS_TIMEOUT: 300
+      WAIT_SLEEP_INTERVAL: 30
+      WAIT_HOST_CONNECT_TIMEOUT: 30
     networks:
       - mysql-compose-network
     ports:
@@ -27,6 +31,8 @@ services:
       - ../:/root/data_store
     depends_on:
       - mysql
+    command: sh -c "/wait && supervisord -n"
+
   mysql:
     image: mysql:5.7
     restart: always
@@ -41,6 +47,7 @@ services:
       - ./mysql/data:/var/lib/mysql
     ports:
       - ${MYSQL_PORT}:3306
+    command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
 
 networks:
   mysql-compose-network:

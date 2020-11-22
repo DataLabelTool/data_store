@@ -50,6 +50,7 @@ async def post_file(file: UploadFile, user: User) -> Union[str, None]:
         session.close()
         return url
     except Exception as e:
+        print("exception", e)
         return None
 
 

@@ -10,11 +10,12 @@ hostname = os.getenv('MYSQL_HOST', 'mysql')
 database_name = os.getenv('MYSQL_DATABASE', 'data_db')
 port = os.getenv('MYSQL_PORT', '3306')
 
-DATABASE_URL = "mysql://%s:%s@%s:%s/%s" % (username, password, hostname, port, database_name)
+DATABASE_URL = "mysql://%s:%s@%s:%s/%s?charset=utf8mb4" % (username, password, hostname, port, database_name)
 
 database = databases.Database(DATABASE_URL)
 
 engine = sqlalchemy.create_engine(
-    DATABASE_URL
+    DATABASE_URL,
+    encoding='utf8'
 )
 Session = sessionmaker(bind=engine)

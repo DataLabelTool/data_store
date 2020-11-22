@@ -37,4 +37,9 @@ WORKDIR /root/data_store
 COPY supervisor /etc/supervisor/conf.d/
 
 RUN exec /bin/bash && conda activate data_store
+
+ENV WAIT_VERSION 2.7.2
+ADD https://github.com/ufoscout/docker-compose-wait/releases/download/$WAIT_VERSION/wait /wait
+RUN chmod +x /wait
+
 CMD ["supervisord", "-n"]
