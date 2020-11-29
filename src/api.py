@@ -16,7 +16,7 @@ from src.routes.store import (
     static_files
 )
 app = FastAPI(
-    title="data_db",
+    title="data_store",
     version=version,
     root_path=requests.utils.urlparse(base_url()).path
 )
